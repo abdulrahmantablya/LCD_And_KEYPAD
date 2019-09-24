@@ -18,10 +18,10 @@ enum {
 uint8 countCorrect = 0;
 uint8 getQuestionLock = 0;
 uint8 questionLockerTimer=0;
-uint8 * questions[MAX_QUEST] = { (uint8*) "40+20= 1 OR 60 ?",
-		(uint8*) "60*20=120 OR 150", (uint8*) "HAMADA", (uint8*) "TOZ",
-		(uint8*) "ASD" };
-uint8 answers[MAX_QUEST] = { NO, NO, NO, YES, NO };
+uint8 * questions[MAX_QUEST] = { (uint8*) "49+23= 72 OR 82 ?",
+		(uint8*) "(138%6) equal 0 ?", (uint8*) "Morning or night", (uint8*) "Was it raining?",
+		(uint8*) "Are you smart?" };
+uint8 answers[MAX_QUEST] = { NO, YES, NO, NO, NO };
 
 void questionDelay(void) {
 	if(getQuestionLock==1){
@@ -46,7 +46,7 @@ void GetQuestion(void) {
 
 				if (answers[i] == keyValue) {
 					LCD_GOTO(2, 1);
-					LCD_Write_Word((uint8*) "CORRECT!!!");
+					LCD_Write_Word((uint8*) "CORRECT :)");
 					countCorrect++;
 				} else {
 					LCD_GOTO(2, 1);

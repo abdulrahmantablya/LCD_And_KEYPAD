@@ -20,20 +20,20 @@ void LCD_Intialization (void)
 	DIO_SetPinDirection(LCD_D6,OUTPUT);
 	DIO_SetPinDirection(LCD_D7,OUTPUT);
 
-	_delay_ms(35);
+	_delay_us(35);
 
 	LCD_Command(lcd_4_bits_initialization_2);
-	_delay_ms(2);
+	_delay_us(2);
 	LCD_Command(lcd_4_bits_initialization_1);
-	_delay_ms(2);
+	_delay_us(2);
 	LCD_Command(lcd_2_lines_4_bits);
-	_delay_ms(2);
+	_delay_us(2);
 	LCD_Command(lcd_displayon_cursor_off);
-	_delay_ms(2);
+	_delay_us(2);
 	LCD_Command(lcd_increment_cursor);
-	_delay_ms(2);
+	_delay_us(2);
 	LCD_Command(lcd_clear);
-	_delay_ms(15);
+	_delay_us(15);
 
 }
 
@@ -41,48 +41,48 @@ void LCD_Intialization (void)
 void LCD_Command (uint8 u8Commandcopy)
 {
 	DIO_WritePin(RS_LCD,LOW);
-	_delay_ms(1);
+	_delay_us(1);
 	DIO_WritePin(E_LCD,HIGH);
-	_delay_ms(1);
+	_delay_us(1);
 
 	PORT_LCD=(PORT_LCD & 0x0f)|(u8Commandcopy & 0xf0);
-	_delay_ms(1);
+	_delay_us(1);
 	DIO_WritePin(E_LCD,LOW);
-	_delay_ms(1);
+	_delay_us(1);
 	DIO_WritePin(E_LCD,HIGH);
-	_delay_ms(1);
+	_delay_us(1);
 
 
 	PORT_LCD=(PORT_LCD & 0x0f)|((u8Commandcopy & 0x0f) <<4 );
-	_delay_ms(1);
+	_delay_us(1);
 	DIO_WritePin(E_LCD,LOW);
-	_delay_ms(1);
+	_delay_us(1);
 	DIO_WritePin(E_LCD,HIGH);
-	_delay_ms(15);
+	_delay_us(15);
 }
 
 
 void LCD_Write_ASCII (uint8 u8Datacopy)
 {
 	DIO_WritePin(RS_LCD,HIGH);
-	_delay_ms(1);
+	_delay_us(1);
 	DIO_WritePin(E_LCD,HIGH);
-	_delay_ms(1);
+	_delay_us(1);
 
 	PORT_LCD=(PORT_LCD & 0x0f)|(u8Datacopy & 0xf0);
-	_delay_ms(1);
+	_delay_us(1);
 	DIO_WritePin(E_LCD,LOW);
-	_delay_ms(1);
+	_delay_us(1);
 	DIO_WritePin(E_LCD,HIGH);
-	_delay_ms(1);
+	_delay_us(1);
 
 
 	PORT_LCD=(PORT_LCD & 0x0f)|((u8Datacopy & 0x0f) <<4 );
-	_delay_ms(1);
+	_delay_us(1);
 	DIO_WritePin(E_LCD,LOW);
-	_delay_ms(1);
+	_delay_us(1);
 	DIO_WritePin(E_LCD,HIGH);
-	_delay_ms(15);
+	_delay_us(15);
 
 }
 
@@ -206,4 +206,7 @@ void LCD_Write_Integer_Number (sint32 number )
 
 	LCD_Write_Word((uint8*)str);
 
+}
+void LCD_clearScreen(void) {
+	LCD_Command(lcd_clear); //clear display
 }

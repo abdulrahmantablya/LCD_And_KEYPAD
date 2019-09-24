@@ -24,5 +24,6 @@ void LCD_Write_Word(uint8* word);
 
 void LCD_Write_Integer_Number (sint32 number );
 
+void LCD_clearScreen(void);
 
 #endif /* LCD_H_ */

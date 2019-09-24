@@ -10,7 +10,7 @@
 
 #include "keypad.h"
 #include "os.h"
-
+#include "LCD.h"
 uint8 keyValue;
 
 uint8 KeyPad_getPressedKey(uint8* value, uint8 *btnStatus) {
@@ -34,13 +34,13 @@ uint8 KeyPad_getPressedKey(uint8* value, uint8 *btnStatus) {
 		{
 			if (GetBit(KEYPAD_PORT_IN,row) == 0) /* if the switch is press in this row */
 			{
+
 				pressFlag = PRESSED;
 				if (*btnStatus == NOT_OK) {
 
 					*btnStatus = PRE_PENDING;
 					break;
 				}
-				//while( GetBit(KEYPAD_PORT_IN,row)==0 );
 				if (*btnStatus == PRE_PENDING) {
 					*value = (3 * (row - 2) + col + 1);
 					*btnStatus = OK;
@@ -57,21 +57,22 @@ uint8 KeyPad_getPressedKey(uint8* value, uint8 *btnStatus) {
 	return pressFlag;
 
 }
-void debouncingHandler(void) {
-	static uint8 btnStatus = NOT_OK,pressStatus;
-	uint8 value;
-	pressStatus = KeyPad_getPressedKey(value, &btnStatus);
+void KeyPAD_DebouncingHandler(void) {
+	static uint8 btnStatus = NOT_OK;
+	uint8 value,pressStatus;
+	pressStatus = KeyPad_getPressedKey(&value, &btnStatus);
 	switch (btnStatus) {
 	case OK:
 		if(pressStatus==PRESSED){
 			if (value == 1) {
 				keyValue = YES;
-			} else if (value == 9) {
+			} else if (value == 7) {
 				keyValue = NO;
 			}
 		}
 		else {
 			btnStatus = POST_PENDING;
+			keyValue = NO_RESULT;
 		}
 
 		break;
@@ -90,6 +91,7 @@ void debouncingHandler(void) {
 		else{
 			btnStatus=NOT_OK;
 		}
+		keyValue = NO_RESULT;
 	}
 
 }

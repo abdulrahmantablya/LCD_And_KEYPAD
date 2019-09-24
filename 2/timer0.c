@@ -48,7 +48,7 @@
 ISR(TIMER0_OVF_vect)
 {
 	static uint8 ovf_flag = 0;
-	if(ovf_flag>=4){
+	if(ovf_flag>=8){
 		if(CallBack_ptrTimer0 != NULL)
 		{
 			CallBack_ptrTimer0();

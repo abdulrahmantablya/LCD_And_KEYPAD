@@ -33,6 +33,8 @@ enum{
 	PRESSED,
 	NOT_PRESSED
 };
+
+extern uint8 keyValue;
 /*******************************************************************************
  *                          Functions Prototypes                               *
  *******************************************************************************/
@@ -42,6 +44,6 @@ enum{
  */
 uint8 KeyPad_getPressedKey(uint8* value,uint8 *btnStatus);
 
-
+extern void KeyPAD_DebouncingHandler(void);
 
 #endif /* KEYPAD_H_ */

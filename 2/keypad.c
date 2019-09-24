@@ -85,7 +85,10 @@ void debouncingHandler(void) {
 		break;
 	case POST_PENDING:
 		if(btnStatus==PRESSED){
-
+			btnStatus=OK;
+		}
+		else{
+			btnStatus=NOT_OK;
 		}
 	}
 
